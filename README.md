@@ -1,23 +1,11 @@
-# NewsRecommendSystem
-A recommend system involved **collaborative filtering**,**content-based recommendation** and **hot news recommendation**, can be adapted easily to be put into use in other circumstances.
+# 个性化新闻推荐系统 NewsRecommendSystem
+
+推荐算法包括协同过滤、基于内容相似度的推荐，热点新闻推荐。
+
+A recommend system involved **collaborative filtering**,**content-based recommendation** and **hot news recommendation**, 
 
 ***Lib: [Ansj](https://github.com/NLPchina/ansj_seg), [Quartz](http://www.quartz-scheduler.org/), [Mahout](http://mahout.apache.org/)***
 
-# Instructions for quickly being into use (Two Steps)
+**系统相关细节可参考[推荐系统介绍.pdf]**
 
-## Construct Required Database(Only for MySQL now)
-Just Run the code below in MySQL command line.
-    
-    Drop TABLE comments;
-    CREATE TABLE comments
-    (
-    id VARCHAR(20) PRIMARY KEY,
-    content VARCHAR(0),
-    date TIMESTAMP null,
-    tagId VARCHAR(20),
-    appendContent VARCHAR(0),
-    appendDate TIMESTAMP null,
-    gid VARCHAR(20)
-    )
-## Set Runtime Properties
 
