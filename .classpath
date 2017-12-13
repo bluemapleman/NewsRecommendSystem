@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="/Users/hanbo/Desktop/边城/jfinal-2.2-all/jfinal-2.2-lib/log4j/log4j-1.2.16.jar"/>
-	<classpathentry kind="lib" path="/Users/hanbo/Desktop/边城/jfinal-2.2-all/jfinal-2.2-lib/jackson/jackson-core-2.5.3.jar"/>
-	<classpathentry kind="lib" path="/Users/hanbo/Desktop/边城/jfinal-2.2-all/jfinal-2.2-lib/c3p0/c3p0-0.9.5.1.jar"/>
-	<classpathentry kind="lib" path="/Users/hanbo/Desktop/边城/开源好工具/数据库驱动/mysql-connector-java-5.1.40-bin.jar"/>
-	<classpathentry kind="lib" path="/Users/hanbo/Desktop/边城/开源好工具/分词/ansj/ansj_seg-5.0.3.jar" sourcepath="/Users/hanbo/Desktop/边城/开源好工具/分词/ansj/ansj_seg-5.0.3-sources.jar"/>
-	<classpathentry kind="lib" path="/Users/hanbo/Desktop/边城/开源好工具/分词/ansj/tree_split-1.4.jar"/>
-	<classpathentry kind="lib" path="/Users/hanbo/Desktop/边城/开源好工具/分词/ansj/nlp-lang-1.7.jar"/>
-	<classpathentry kind="lib" path="/Users/hanbo/Desktop/边城/开源好工具/日志类工具/slf4j-api-1.7.10.jar"/>
-	<classpathentry kind="lib" path="/Users/hanbo/Desktop/边城/apache-mahout-0.12.2/mahout-flink_2.10-0.12.2.jar"/>
-	<classpathentry kind="lib" path="/Users/hanbo/Desktop/边城/apache-mahout-0.12.2/mahout-h2o_2.10-0.12.2-dependency-reduced.jar"/>
-	<classpathentry kind="lib" path="/Users/hanbo/Desktop/边城/apache-mahout-0.12.2/mahout-h2o_2.10-0.12.2.jar"/>
-	<classpathentry kind="lib" path="/Users/hanbo/Desktop/边城/apache-mahout-0.12.2/mahout-math-0.12.2.jar"/>
-	<classpathentry kind="lib" path="/Users/hanbo/Desktop/边城/apache-mahout-0.12.2/mahout-mr-0.12.2.jar"/>
-	<classpathentry kind="lib" path="/Users/hanbo/Desktop/边城/apache-mahout-0.12.2/mahout-mr-0.12.2-job.jar"/>
-	<classpathentry kind="lib" path="/Users/hanbo/Desktop/边城/开源好工具/quartz-2.2.2/lib/quartz-2.2.2.jar"/>
-	<classpathentry kind="lib" path="/Users/hanbo/Desktop/边城/开源好工具/数据库驱动/postgresql-9.4.1207.jre6.jar"/>
-	<classpathentry kind="lib" path="/Users/hanbo/Desktop/边城/apache-mahout-0.12.2/mahout-integration-0.12.2.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry including="**/*.java" kind="src" output="target/classes" path="src">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>
