@@ -14,8 +14,6 @@ import org.quartz.impl.JobDetailImpl;
 import org.quartz.impl.StdSchedulerFactory;
 import org.quartz.impl.triggers.CronTriggerImpl;
 
-import top.qianxinyao.model.Users;
-
 /**
  * @author qianxinyao
  * @email tomqianmaple@gmail.com
@@ -24,7 +22,7 @@ import top.qianxinyao.model.Users;
  */
 public class HRCronTriggerRunner
 {
-	public void task(List<Users> users,String cronExpression) throws SchedulerException
+	public void task(List<Long> users,String cronExpression) throws SchedulerException
     {
         // Initiate a Schedule Factory
         SchedulerFactory schedulerFactory = new StdSchedulerFactory();

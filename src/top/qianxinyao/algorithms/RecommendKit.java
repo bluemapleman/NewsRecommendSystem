@@ -278,13 +278,16 @@ public class RecommendKit
 	 * 
 	 * @return
 	 */
-	public static List<Users> getActiveUsers()
+	public static List<Long> getActiveUsers()
 	{
 		try
 		{
 			int activeDay=PropGetKit.getInt("activeDay");
 			List<Users> userList=Users.dao.find("select distinct id,name from users where latest_log_time>" + getInRecDate(activeDay));
-			return userList;
+			List<Long> userIDList=new ArrayList<Long>();
+			for(Users user:userList)
+				userIDList.add(user.getId());
+			return userIDList;
 		}
 		catch (Exception e)
 		{
@@ -295,11 +298,14 @@ public class RecommendKit
 		return null;
 	}
 	
-	public static List<Users> getAllUsers(){
+	public static List<Long> getAllUsers(){
 		try
 		{
 			List<Users> userList=Users.dao.find("select distinct id,name from users");
-			return userList;
+			List<Long> userIDList=new ArrayList<Long>();
+			for(Users user:userList)
+				userIDList.add(user.getId());
+			return userIDList;
 		}
 		catch (Exception e)
 		{

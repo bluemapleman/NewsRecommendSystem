@@ -17,9 +17,9 @@ import top.qianxinyao.dbconnection.DBKit;
 import top.qianxinyao.model.News;
 import top.qianxinyao.model.Newsmodules;
 
-public class TestDataProcessor{
+public class NewsScraper{
 	
-	public static final Logger logger=Logger.getLogger(TestDataProcessor.class);
+	public static final Logger logger=Logger.getLogger(NewsScraper.class);
 	
 	/**
 	 * 从新闻门户抓取一次新闻
