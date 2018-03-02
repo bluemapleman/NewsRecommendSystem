@@ -20,7 +20,7 @@ public class TestDataRunner
 		System.out.println("开始测试数据的运行！");
 		
 		//选择要在推荐系统中运行的推荐算法
-		boolean enableCF=false,enableCB=false,enableHR=true;
+		boolean enableCF=false,enableCB=true,enableHR=false;
 		
 		JobSetter jobSetter=new JobSetter(enableCF,enableCB,enableHR);
 		

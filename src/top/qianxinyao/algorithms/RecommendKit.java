@@ -73,7 +73,7 @@ public class RecommendKit
 			String newsids = getInQueryString(col.iterator());
 			if (!newsids.equals("()"))
 			{
-				List<News> newsList = News.dao.find("select news_id,news_time from news where id in " + newsids);
+				List<News> newsList = News.dao.find("select id,news_time from news where id in " + newsids);
 				for(News news:newsList)
 				{
 					if (news.getNewsTime().before(getInRecTimestamp(beforeDays)))

@@ -123,12 +123,12 @@ public class JsonKit
 		ObjectMapper objectMapper=new ObjectMapper();
 		CustomizedHashMap<Integer,CustomizedHashMap<String,Double>> map=null;
 		try
-		{
+		{			
+			System.out.println("srcJson:"+srcJson);
 			map=objectMapper.readValue(srcJson, new TypeReference<CustomizedHashMap<Integer,CustomizedHashMap<String,Double>>>(){});
 		}
 		catch (JsonParseException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		catch (JsonMappingException e)

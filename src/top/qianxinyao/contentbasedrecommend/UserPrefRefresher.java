@@ -214,7 +214,7 @@ public class UserPrefRefresher
 			if(newsIdListQuery.length()>1){
 				newsIdListQuery=newsIdListQuery.substring(0, newsIdListQuery.length()-1)+")";
 				//提取出所有新闻的关键词列表及对应TF-IDf值，并放入一个map中
-				List<News> newsList=News.dao.find("select id,title,content,module_id from news where newsid in "+newsIdListQuery);
+				List<News> newsList=News.dao.find("select id,title,content,module_id from news where id in "+newsIdListQuery);
 				
 				newsTFIDFMap=new HashMap<String,Object>();
 				for(News news:newsList){
