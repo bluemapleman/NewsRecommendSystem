@@ -1,5 +1,4 @@
 package top.qianxinyao.Main;
-
 import org.apache.log4j.Logger;
 
 /**

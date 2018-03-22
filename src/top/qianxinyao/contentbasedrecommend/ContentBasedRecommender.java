@@ -95,6 +95,7 @@ public class ContentBasedRecommender implements RecommendAlgorithm
 					RecommendKit.filterReccedNews(toBeRecommended,userId);
 					//过滤掉用户已经看过的新闻
 					RecommendKit.filterBrowsedNews(toBeRecommended, userId);
+					//如果可推荐新闻数目超过了系统默认为CB算法设置的单日推荐上限数（N），则去掉一部分多余的可推荐新闻，剩下的N个新闻才进行推荐
 					if(toBeRecommended.size()>N){
 						RecommendKit.removeOverNews(toBeRecommended,N);
 					}

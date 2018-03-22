@@ -124,7 +124,6 @@ public class JsonKit
 		CustomizedHashMap<Integer,CustomizedHashMap<String,Double>> map=null;
 		try
 		{			
-			System.out.println("srcJson:"+srcJson);
 			map=objectMapper.readValue(srcJson, new TypeReference<CustomizedHashMap<Integer,CustomizedHashMap<String,Double>>>(){});
 		}
 		catch (JsonParseException e)

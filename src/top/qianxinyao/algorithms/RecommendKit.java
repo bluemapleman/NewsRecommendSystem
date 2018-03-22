@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 
 import top.qianxinyao.contentbasedrecommend.CustomizedHashMap;
 import top.qianxinyao.model.News;
+import top.qianxinyao.model.Newslogs;
 import top.qianxinyao.model.Recommendations;
 import top.qianxinyao.model.Users;
 
@@ -96,12 +97,12 @@ public class RecommendKit
 	{
 		try
 		{
-			List<News> newsList = News.dao.find("select news_id from newslogs where user_id=?",userId);
-			for (News news:newsList)
+			List<Newslogs> newslogsList = Newslogs.dao.find("select news_id from newslogs where user_id=?",userId);
+			for (Newslogs newslog:newslogsList)
 			{
-				if (col.contains(news.getId()))
+				if (col.contains(newslog.getNewsId()))
 				{
-					col.remove(news.getId());
+					col.remove(newslog.getNewsId());
 				}
 			}
 		}
@@ -119,12 +120,13 @@ public class RecommendKit
 	{
 		try
 		{
-			List<News> newsList = News.dao.find("select news_id from recommendations where user_id=? and derive_time>?",userId,getInRecDate());
-			for (News news:newsList)
+			//但凡近期已经给用户推荐过的新闻，都过滤掉
+			List<Recommendations> recommendationList = Recommendations.dao.find("select news_id from recommendations where user_id=? and derive_time>?",userId,getInRecDate());
+			for (Recommendations recommendation:recommendationList)
 			{
-				if (col.contains(news.getId()))
+				if (col.contains(recommendation.getNewsId()))
 				{
-					col.remove(news.getId());
+					col.remove(recommendation.getNewsId());
 				}
 			}
 		}
@@ -264,6 +266,7 @@ public class RecommendKit
 				rec.setUserId(userId);
 				rec.setDeriveAlgorithm(recAlgo);
 				rec.setNewsId(newsIte.next());
+				rec.save();
 			}
 		}
 		catch (Exception e)

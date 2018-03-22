@@ -24,7 +24,8 @@ import top.qianxinyao.model.Users;
  * @author qianxinyao
  * @email tomqianmaple@gmail.com
  * @github https://github.com/bluemapleman
- * @date 2016年11月3日 每次用户浏览新的新闻时，用以更新用户的喜好关键词列表
+ * @date 2016年11月3日 
+ * 每次用户浏览新的新闻时，用以更新用户的喜好关键词列表
  */
 public class UserPrefRefresher
 {	
@@ -38,12 +39,21 @@ public class UserPrefRefresher
 			refresh(RecommendKit.getUserList());
 	}
 	
+	/**
+	 * 按照推荐频率调用的方法，一般为一天执行一次。
+	 * 定期根据前一天所有用户的浏览记录，在对用户进行喜好关键词列表TFIDF值衰减的后，将用户前一天看的新闻的关键词及相应TFIDF值更新到列表中去。
+	 * @param userIdsCol
+	 */
 	@SuppressWarnings("unchecked")
 	public void refresh(Collection<Long> userIdsCol){
 			//首先对用户的喜好关键词列表进行衰减更新
 			autoDecRefresh(userIdsCol);
+			
 			//用户浏览新闻纪录：userBrowsexMap:<Long(userid),ArrayList<String>(newsid List)>
 			HashMap<Long,ArrayList<Long>> userBrowsedMap=getBrowsedHistoryMap();
+			//如果前一天没有浏览记录（比如新闻门户出状况暂时关停的情况下，或者初期用户较少的时候均可能出现这种情况），则不需要执行后续更新步骤
+			if(userBrowsedMap.size()==0)
+				return;
 			
 			//用户喜好关键词列表：userPrefListMap:<String(userid),String(json))>
 			HashMap<Long,CustomizedHashMap<Integer,CustomizedHashMap<String,Double>>> userPrefListMap=RecommendKit.getUserPrefListMap(userBrowsedMap.keySet());
@@ -62,8 +72,7 @@ public class UserPrefRefresher
 					//获得对应模块的（关键词：喜好）map
 					CustomizedHashMap<String,Double> rateMap=userPrefListMap.get(userId).get(moduleId);
 					//获得新闻的（关键词：TFIDF值）map
-					@SuppressWarnings("unlikely-arg-type")
-					List<Keyword> keywordList=(List<Keyword>) newsTFIDFMap.get(news);
+					List<Keyword> keywordList=(List<Keyword>) newsTFIDFMap.get(news.toString());
 					Iterator<Keyword> keywordIte=keywordList.iterator();
 					while(keywordIte.hasNext()){
 						Keyword keyword=keywordIte.next();
@@ -83,7 +92,7 @@ public class UserPrefRefresher
 				Long userId=iterator.next();
 				try
 				{
-					Db.update("update users set upreflist='"+userPrefListMap.get(userId)+"' where userid=?",userId);
+					Db.update("update users set pref_list='"+userPrefListMap.get(userId)+"' where id=?",userId);
 				}
 				catch (Exception e)
 				{
@@ -153,14 +162,13 @@ public class UserPrefRefresher
 	}
 	
 	/**
-	 * 提取出当天所有用户浏览新闻纪录
+	 * 提取出当天有浏览行为的用户及其各自所浏览过的新闻id列表
 	 * @return
 	 */
 	private HashMap<Long,ArrayList<Long>> getBrowsedHistoryMap(){
-		HashMap<Long, ArrayList<Long>> userBrowsedMap=null;
+		HashMap<Long, ArrayList<Long>> userBrowsedMap=new HashMap<Long,ArrayList<Long>>();
 		try
 		{
-			userBrowsedMap=new HashMap<Long,ArrayList<Long>>();
 			List<Newslogs> newslogsList=Newslogs.dao.find("select * from newslogs where view_time>"+RecommendKit.getSpecificDayFormat(0));
 			for(Newslogs newslogs:newslogsList){
 				if(userBrowsedMap.containsKey(newslogs.getUserId())){
@@ -202,28 +210,36 @@ public class UserPrefRefresher
 	 * @return
 	 */
 	private HashMap<String,Object> getNewsTFIDFMap(){
-		HashMap<String,Object> newsTFIDFMap=null;
+		HashMap<String,Object> newsTFIDFMap=new HashMap<String,Object>();;
 		try
 		{
 			Iterator<Long> ite=getBrowsedNewsSet().iterator();
 			String newsIdListQuery="(";
 			while(ite.hasNext()){
-				newsIdListQuery+=ite.next()+",";
+				long next=ite.next();
+				newsIdListQuery+=next+",";
 			}
-			//用户如果当天没看新闻
-			if(newsIdListQuery.length()>1){
-				newsIdListQuery=newsIdListQuery.substring(0, newsIdListQuery.length()-1)+")";
-				//提取出所有新闻的关键词列表及对应TF-IDf值，并放入一个map中
-				List<News> newsList=News.dao.find("select id,title,content,module_id from news where id in "+newsIdListQuery);
-				
-				newsTFIDFMap=new HashMap<String,Object>();
-				for(News news:newsList){
-					newsTFIDFMap.put(String.valueOf(news.getId()), TFIDF.getTFIDE(news.getTitle(), news.getContent(),KEY_WORDS_NUM));
-					newsTFIDFMap.put(news.getId()+"moduleid", news.getModuleId());
-				}
+			
+//			//当天存在用户浏览记录
+//			if(newsIdListQuery.length()>1){
+//				newsIdListQuery=newsIdListQuery.substring(0, newsIdListQuery.length()-1)+")";
+//				//提取出所有新闻的关键词列表及对应TF-IDf值，并放入一个map中
+//				List<News> newsList=News.dao.find("select id,title,content,module_id from news where id in "+newsIdListQuery);
+//				System.out.println("newsIdListQuery:"+newsIdListQuery);
+//				for(News news:newsList){
+//					newsTFIDFMap.put(String.valueOf(news.getId()), TFIDF.getTFIDE(news.getTitle(), news.getContent(),KEY_WORDS_NUM));
+//					newsTFIDFMap.put(news.getId()+"moduleid", news.getModuleId());
+//				}
+//				for()
+//			}
+			
+			newsIdListQuery=newsIdListQuery.substring(0, newsIdListQuery.length()-1)+")";
+			//提取出所有新闻的关键词列表及对应TF-IDf值，并放入一个map中
+			List<News> newsList=News.dao.find("select id,title,content,module_id from news where id in "+newsIdListQuery);
+			for(News news:newsList){
+				newsTFIDFMap.put(String.valueOf(news.getId()), TFIDF.getTFIDE(news.getTitle(), news.getContent(),KEY_WORDS_NUM));
+				newsTFIDFMap.put(news.getId()+"moduleid", news.getModuleId());
 			}
-			else
-				return null;
 		}
 		catch (Exception e)
 		{

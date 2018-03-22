@@ -20,6 +20,7 @@ public class TestDataRunner
 		System.out.println("开始测试数据的运行！");
 		
 		//选择要在推荐系统中运行的推荐算法
+		//协同过滤Collaborative Filtering，基于内容相似度的推荐Content-based,基于热点新闻推荐HotNewsRecommendation
 		boolean enableCF=false,enableCB=true,enableHR=false;
 		
 		JobSetter jobSetter=new JobSetter(enableCF,enableCB,enableHR);
@@ -38,6 +39,7 @@ public class TestDataRunner
 		System.out.println("测试数据运行结束！");
 	}
 	
+	//对测试数据的相关日期数据进行更新，以保证能够在测试运行中获得理想的推荐结果。
 	public void databaseReady() {
 		Db.update("update news set news_time=?",new Date());
 		for(int id=1;id<8;id++) {

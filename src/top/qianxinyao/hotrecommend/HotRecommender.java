@@ -46,10 +46,11 @@ public class HotRecommender implements RecommendAlgorithm
 		{
 			try
 			{
+				//获得已经预备为当前用户推荐的新闻，若数目不足达不到单次的最低推荐数目要求，则用热点新闻补充
 				Recommendations recommendation=Recommendations.dao.findFirst("select user_id,count(*) as recnums from recommendations where derive_time>'" + timestamp
 								+ "' and user_id='" + userId + "' group by user_id");
 				
-				boolean flag=recommendation!=null;
+				boolean flag=(recommendation!=null);
 				
 				int delta=flag?TOTAL_REC_NUM - recommendation.getInt("recnums"):TOTAL_REC_NUM;
 				Set<Long> toBeRecommended = new HashSet<Long>();
