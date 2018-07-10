@@ -1,6 +1,6 @@
-[toc]
-
 # 个性化新闻推荐系统--TomRecommenderSystem
+
+中文文档 | [English Document](https://github.com/bluemapleman/NewsRecommendSystem/tree/master/docs/English)
 
 ## 说明
 
