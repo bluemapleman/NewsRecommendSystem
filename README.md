@@ -4,8 +4,6 @@
 
 ## 说明
 
-本推荐系统需要基于【新闻模块】使用，此处对于【新闻模块】的定义是：**有规律地进行新闻采集，并通过公共平台对用户进行新闻展示与推送的应用。**
-
 本推荐系统使用的推荐算法包括协同过滤（Collaborative Filtering）、基于内容相似度的推荐（Content-based Recommendation）与热点新闻推荐（Hot News Recommendation）：
 
 - 协同过滤的实现依托于Mahout的提供库；
@@ -22,11 +20,16 @@
 - [Jfinal](http://www.jfinal.com/)：使用内置的ActiveRecord与Db工具，对推荐系统中的数据库表做了实体类映射，以简化数据库相关操作。
 
 
+本推荐系统需要基于【新闻模块】使用，此处对于【新闻模块】的定义是：**有规律地进行新闻采集，并通过公共平台对用户进行新闻展示与推送的应用。**当然，这是实际应用的需求，如果只是自己做研究或者实验的话，可以只使用[测试数据](https://github.com/bluemapleman/NewsRecommendSystem/blob/master/test_data.sql)即可。
+
+
 ## 使用
 
 ### 预备工作
 
-#### 数据库配合
+#### 一、数据库配合
+
+(**该步骤主要是为了说明推荐系统要求交互的数据。真实建库的话，直接在新建的数据库中运行[测试数据](https://github.com/bluemapleman/NewsRecommendSystem/blob/master/test_data.sql)，即可完成所有建表工作，附带提供的测试数据。**)
 
 **本推荐系统目前只支持与MYSQL数据库进行交互**
 
@@ -94,7 +97,7 @@
 
 
 
-#### 数据库配置
+#### 二、数据库连接配置
 
 在项目根目录下的res目录下，修改dbconfig.properties文件中有关数据库的配置：
 
@@ -108,7 +111,7 @@ password = [登录密码]
 
 ### 系统启动-Quick Start
 
-四个步骤：
+完成数据库配置后，依次四个步骤：
 
 1.在com.qianxinyao.TomNewsRecommender包下，找到类Main；
 
@@ -129,7 +132,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 /**
- * @author qianxinyao
+ * @author bluemapleman
  * @email tomqianmaple@gmail.com
  * @github https://github.com/bluemapleman
  * @date 2016年10月20日
@@ -150,9 +153,9 @@ public class Main
         boolean enableCF=true,enableCB=false,enableHR=false;
         
         List<Long> userList=new ArrayList<Long>();
-        userList.add(1l);
-        userList.add(2l);
-        userList.add(3l);
+        userList.add(1L);
+        userList.add(2L);
+        userList.add(3L);
         
         //为指定用户执行一次推荐
         new JobSetter(enableCF,enableCB,enableHR).executeInstantJobForCertainUsers(userList);
@@ -206,6 +209,11 @@ new TestDataRunner().runTestData();
 
 
 
+# 更新日志
 
+**欢迎大家踊跃提出自己对该推荐系统的任何想法和建议！**
 
-
+|版本|日期|特性|
+|--|--|--|
+|V1.0.0|2018/10/04|规整README.md说明文档，使之更加易懂理解。|
+|V1.0.1|开发中|1. 自主实现Java版本的TFIDF算法，或者整理一份训练语料库，以达到更好的关键词提取效果；<br>2.改善基于内容的推荐算法的匹配程度计算方法，使之更加高效。（若用户的偏好列表中有数千喜好关键词，若将一千条最近的新闻与该用户做匹配，后台计算出推荐结果列表只需要*100ms*，不考虑网络传输等其他时间因素）|
