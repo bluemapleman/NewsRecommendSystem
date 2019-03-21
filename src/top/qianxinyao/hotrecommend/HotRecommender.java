@@ -3,20 +3,14 @@
  */
 package top.qianxinyao.hotrecommend;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.apache.log4j.Logger;
-
 import top.qianxinyao.algorithms.RecommendAlgorithm;
 import top.qianxinyao.algorithms.RecommendKit;
 import top.qianxinyao.model.Newslogs;
 import top.qianxinyao.model.Recommendations;
+
+import java.sql.Timestamp;
+import java.util.*;
 
 /**
  * @author qianxinyao
@@ -51,8 +45,11 @@ public class HotRecommender implements RecommendAlgorithm
 								+ "' and user_id='" + userId + "' group by user_id");
 				
 				boolean flag=(recommendation!=null);
-				
-				int delta=flag?TOTAL_REC_NUM - recommendation.getInt("recnums"):TOTAL_REC_NUM;
+				Integer tmpRecNums=0;
+				if(recommendation!=null) {
+					tmpRecNums = recommendation.getInt("recnums");
+				}
+				int delta=flag?TOTAL_REC_NUM - Integer.valueOf(tmpRecNums.toString()):TOTAL_REC_NUM;
 				Set<Long> toBeRecommended = new HashSet<Long>();
 				if (delta > 0)
 				{
