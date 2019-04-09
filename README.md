@@ -1,5 +1,7 @@
 # 个性化新闻推荐系统--TomRecommenderSystem
 
+**若有任何有关项目的问题（导入、运行、后期改进、需求等等），欢迎首先在issue里提出，我会随时查看并积极回复！谢谢大家！**
+
 中文文档 | [English Document](https://github.com/bluemapleman/NewsRecommendSystem/tree/master/docs/English)
 
 ## 说明
@@ -107,7 +109,7 @@ user = [登录用户名]
 password = [登录密码]
 ```
 
-**注意，数据库的编码设置应为UTF8。**
+**注意，数据库的编码设置应为utf8mb4。（mb4支持emoji字符）**
 
 ### 系统启动-Quick Start
 

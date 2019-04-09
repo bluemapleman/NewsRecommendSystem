@@ -1,5 +1,7 @@
 # Tom's News Recommender -- personal news recommendation system
 
+[中文文档](https://github.com/bluemapleman/NewsRecommendSystem)
+
 ## Basic Information
 
 This recommender needs to cooperate with a [News Module]. Here the definition of [News Module] is an application with following features:
