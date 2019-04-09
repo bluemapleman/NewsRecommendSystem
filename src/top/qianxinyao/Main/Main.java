@@ -1,4 +1,7 @@
-package top.qianxinyao.Main;
+package top.qianxinyao.main;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -23,20 +26,20 @@ public class Main
 		new TestDataRunner().runTestData();
 		
 		
-//		//选择要在推荐系统中运行的推荐算法
-//		boolean enableCF=false,enableCB=false,enableHR=true;
-//		
-//		List<Long> userList=new ArrayList<Long>();
-//		userList.add(1l);
-//		userList.add(2l);
-//		userList.add(3l);
-//		
-//		
-//		
-//		//为指定用户执行一次推荐
-//		new JobSetter(enableCF,enableCB,enableHR).executeInstantJobForCertainUsers(userList);
-//		//为活跃用户执行定时推荐
-////		new JobSetter(enableCF,enableCB,enableHR).executeQuartzJobForActiveUsers();
+		//选择要在推荐系统中运行的推荐算法
+		boolean enableCF=false,enableCB=false,enableHR=true;
+		
+		List<Long> userList=new ArrayList<Long>();
+		userList.add(1l);
+		userList.add(2l);
+		userList.add(3l);
+		
+		
+		
+		//为指定用户执行一次推荐
+		new JobSetter(enableCF,enableCB,enableHR).executeInstantJobForCertainUsers(userList);
+		//为活跃用户执行定时推荐
+//		new JobSetter(enableCF,enableCB,enableHR).executeQuartzJobForActiveUsers();
 	}
 	
 	

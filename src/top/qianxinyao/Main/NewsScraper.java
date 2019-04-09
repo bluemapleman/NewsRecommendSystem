@@ -1,4 +1,4 @@
-package top.qianxinyao.Main;
+package top.qianxinyao.main;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
